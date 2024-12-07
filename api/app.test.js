@@ -17,7 +17,7 @@ const waitForApi = async (url, retries = 5) => {
     }
 };
 
-test("should return 200 OK for the root route", async () => {
+test("should return 200 OK for the root routeee", async () => {
     const response = await waitForApi(`${API_URL}/`);
     expect(response.status).toBe(200);
 });
