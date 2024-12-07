@@ -1,22 +1,24 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;$PATH"  // Añadir la ruta de docker-compose a PATH en Windows
+    }
+
     stages {
         stage('checkout') {
             steps {
                 git branch:'master', url: 'https://github.com/jhonyGri/IntegracionPro.git'
-                
             }
         }
-        stage('Build'){
-            steps{
+        stage('Build') {
+            steps {
                 echo 'Run build'
             }
         }
-        stage('Test'){
-            steps{
+        stage('Test') {
+            steps {
                 echo 'Run test'
-                
             }
         }
 
