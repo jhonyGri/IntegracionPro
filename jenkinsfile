@@ -31,7 +31,7 @@ pipeline {
 
     post {
         always {
-            echo 'Limpiando los recursos de Docker...'
+            echo 'Limpiando los recursos de Docker......'
             sh 'docker-compose down --volumes'
         }
     }
