@@ -1,3 +1,4 @@
+version: '3'
 services:
   jenkins:
     image: jenkins/jenkins:lts
@@ -6,9 +7,17 @@ services:
       - "8080:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home  # Definimos el volumen correctamente
+      - jenkins_home:/var/jenkins_home  # Volumen para los datos de Jenkins
+      - /var/run/docker.sock:/var/run/docker.sock  # Montar el socket Docker de la máquina anfitriona
     networks:
       - app-network
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock  # Establecer el host Docker
+    privileged: true  # Permite acceso completo a Docker
 
 volumes:
-  jenkins_home:  # Asegúrate de tener esta sección para que Docker pueda crear y gestionar el volumenmm
+  jenkins_home:  # Volumen persistente para Jenkins
+
+networks:
+  app-network:
+    driver: bridge
