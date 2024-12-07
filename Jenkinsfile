@@ -2,20 +2,23 @@ pipeline {
     agent any
 
     environment {
-        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;$PATH"  // Añadir la ruta de docker-compose a PATH en Windows
+        // Añadir la ruta de Docker y docker-compose a PATH en Windows
+        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
     }
 
     stages {
-        stage('checkout') {
+        stage('Checkout') {
             steps {
-                git branch:'master', url: 'https://github.com/jhonyGri/IntegracionPro.git'
+                git branch: 'master', url: 'https://github.com/jhonyGri/IntegracionPro.git'
             }
         }
+
         stage('Build') {
             steps {
                 echo 'Run build'
             }
         }
+
         stage('Test') {
             steps {
                 echo 'Run test'
@@ -25,7 +28,8 @@ pipeline {
         stage('Despliegue a entorno de pruebas') {
             steps {
                 script {
-                    sh 'docker-compose -f docker-compose.yml up -d --build'
+                    // Usar bat en lugar de sh para Windows
+                    bat 'docker-compose -f docker-compose.yml up -d --build'
                 }
             }
         }
@@ -33,8 +37,9 @@ pipeline {
 
     post {
         always {
-            echo 'Limpiando los recursos de Docker...... y añadiendo webhooksssssss'
-            sh 'docker-compose down --volumes'
+            echo 'Limpiando los recursos de Docker...'
+            // Limpiar los recursos de Docker después de la ejecución
+            bat 'docker-compose down --volumes'
         }
     }
 }
