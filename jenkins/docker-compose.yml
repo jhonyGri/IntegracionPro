@@ -6,6 +6,9 @@ services:
       - "8080:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home
+      - jenkins_home:/var/jenkins_home  # Definimos el volumen correctamente
+    networks:
+      - app-network
+
 volumes:
-  jenkins_home:
+  jenkins_home:  # Asegúrate de tener esta sección para que Docker pueda crear y gestionar el volumen
