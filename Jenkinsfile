@@ -25,7 +25,7 @@ pipeline {
         stage('Despliegue a entorno de pruebas') {
             steps {
                 script {
-                    sh 'docker-compose -f docker-compose.yml -f docker-compose.lab.yml up -d --build'
+                    sh 'docker-compose -f docker-compose.yml up -d --build'
                 }
             }
         }
