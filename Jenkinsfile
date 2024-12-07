@@ -25,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Despliegue a entorno de pruebas') {
+        stage('Despliegue a entorno de pruebasss') {
             steps {
                 script {
                     // Usar bat en lugar de sh para Windows
