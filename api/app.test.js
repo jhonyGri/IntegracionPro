@@ -1,23 +1,23 @@
-const Sentry = require('@sentry/node');
-const app = require('./app');
+const axios = require("axios");
 
-jest.mock('@sentry/node', () => ({
-  init: jest.fn(),
-  Handlers: {
-    requestHandler: jest.fn().mockImplementation(() => (req, res, next) => next()),
-    tracingHandler: jest.fn().mockImplementation(() => (req, res, next) => next()),
-    errorHandler: jest.fn().mockImplementation(() => (err, req, res, next) => res.status(500).send('Error interno del servidor'))
-  },
-  Integrations: {
-    Http: jest.fn()
-  }
-}));
+const API_URL = process.env.API_URL || "http://localhost:3000";
 
-describe('Sentry Integration', () => {
+const waitForApi = async (url, retries = 5) => {
+    for (let i = 0; i < retries; i++) {
+        try {
+            const response = await axios.get(url);
+            return response;
+        } catch (error) {
+            if (i < retries - 1) {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+            } else {
+                throw error;
+            }
+        }
+    }
+};
 
-    it('should set tracesSampleRate correctly', () => {
-        expect(Sentry.init).toHaveBeenCalledWith(expect.objectContaining({
-            tracesSampleRate: 1.0
-        }));
-    });
+test("should return 200 OK for the root route", async () => {
+    const response = await waitForApi(`${API_URL}/`);
+    expect(response.status).toBe(200);
 });

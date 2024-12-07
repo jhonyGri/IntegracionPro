@@ -1,24 +1,24 @@
-# docker-compose.yml
+version: '3'
 services:
   api:
-    build: ./api
+    build:
+      context: ./api
     ports:
       - "3000:3000"
-    volumes:
-      - ./coverage/api:/app/coverage # Compartir cobertura API
     networks:
       - app-network
 
   client:
-    build: ./client
+    build:
+      context: ./client
     ports:
       - "4000:4000"
     depends_on:
       - api
-    volumes:
-      - ./coverage/client:/app/coverage # Compartir cobertura Cliente
     networks:
       - app-network
+    environment:
+      API_URL: http://api:3000  # Nombre del servicio API (se puede usar como host en Docker Compose)
 
 networks:
   app-network:
