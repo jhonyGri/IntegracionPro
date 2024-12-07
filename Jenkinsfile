@@ -20,7 +20,9 @@ pipeline {
                 script {
                     echo "Iniciando la construcción de las imágenes Docker"
                     // Aquí puedes añadir pasos como npm install, compilación de proyectos, etc.
-                    sh 'docker-compose -f docker-compose.yml build'
+                    sh 'docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE:$DOCKER_TAG .'
+s                   sh 'docker run -d $DOCKER_REGISTRY/$DOCKER_IMAGE:$DOCKER_TAG'
+
                 }
             }
         }
