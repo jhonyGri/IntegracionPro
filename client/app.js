@@ -5,7 +5,7 @@ const PORT = 4000;
 
 app.get("/", async (req, res) => {
     try {
-        const response = await axios.get(process.env.API_URL);
+        const response = await axios.get(process.env.API_URhhL);
         res.send(`El client recibió el mensaje: ${response.data}`);
     } catch (error) {
         res.send("Error al comunicarse con la API");

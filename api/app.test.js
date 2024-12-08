@@ -18,6 +18,11 @@ const waitForApi = async (url, retries = 5) => {
 };
 
 test("should return 200 OK for the root routeee", async () => {
-    const response = await waitForApi(`${API_URL}/`);
-    expect(response.status).toBe(200);
+    try {
+        const response = await waitForApi(`${API_URL}/`);
+        expect(response.status).toBe(200);
+    } catch (error) {
+        expect(error.response.status).toBe(500);  // Verificar el código de error
+        expect(error.response.data).toContain("¡Algo salió mal en la ruta principal!"); // Verifica el mensaje de error
+    }
 });

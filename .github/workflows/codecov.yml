@@ -35,7 +35,7 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: 18e6f73d-f95c-4584-a84e-556e958ce478
           files: |
             ./coverage/api/lcov.info
             ./coverage/client/lcov.info

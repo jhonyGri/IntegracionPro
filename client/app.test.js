@@ -1,5 +1,7 @@
-
 const axios = require('axios');
+
+// Simula axios
+jest.mock('axios');
 
 describe('API Integration', () => {
     it('should make an API request successfully', async () => {
@@ -7,7 +9,7 @@ describe('API Integration', () => {
         axios.get.mockResolvedValue({ data: 'Hola desde la API!' });
 
         // Realiza una solicitud usando axios
-        const response = await axios.get('http://api:3000');
+        const response = await axios.get('http://api:30000');
 
         // Verifica que la solicitud fue exitosa
         expect(response.data).toBe('Hola desde la API!');
@@ -19,7 +21,7 @@ describe('API Integration', () => {
 
         try {
             // Realiza una solicitud que fallará
-            await axios.get('http://api:3000');
+            await axios.get('http://api:30000');
         } catch (error) {
             // Verifica que se lanzó un error
             expect(error.message).toBe('API Error');
